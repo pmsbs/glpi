@@ -3,7 +3,7 @@ services:
     image: "glpi/glpi:latest"
     restart: "unless-stopped"
     volumes:
-      - "./storage/glpi:/var/glpi:rw"
+      - "/opt/glpi/glpi:/var/glpi:rw"
     env_file: .env # Pass environment variables from .env file to the container
     depends_on:
       db:
@@ -15,7 +15,7 @@ services:
     image: "mysql"
     restart: "unless-stopped"
     volumes:
-       - "./storage/mysql:/var/lib/mysql"
+      - "/opt/glpi/mysql:/var/lib/mysql"
     environment:
       MYSQL_RANDOM_ROOT_PASSWORD: "yes"
       MYSQL_DATABASE: ${GLPI_DB_NAME}
