@@ -1,6 +1,6 @@
 services:
   glpi:
-    image: "glpi/glpi:latest"
+    image: "glpi/glpi:11"
     restart: "unless-stopped"
     volumes:
       - "/opt/glpi/glpi:/var/glpi:rw"
