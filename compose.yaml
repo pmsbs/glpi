@@ -3,19 +3,21 @@ services:
     image: "glpi/glpi:11"
     restart: "unless-stopped"
     volumes:
-      - "/opt/glpi/glpi:/var/glpi:rw"
-    env_file: .env # Pass environment variables from .env file to the container
+      - "glpi_data:/var/glpi:rw"
+    env_file: .env
     depends_on:
       db:
         condition: service_healthy
     ports:
       - "8080:80"
+    networks:
+      - glpi_network
 
   db:
     image: "mysql"
     restart: "unless-stopped"
     volumes:
-      - "/opt/glpi/mysql:/var/lib/mysql"
+      - "glpi_mysql_data:/var/lib/mysql"
     environment:
       MYSQL_RANDOM_ROOT_PASSWORD: "yes"
       MYSQL_DATABASE: ${GLPI_DB_NAME}
@@ -29,3 +31,12 @@ services:
       retries: 10
     expose:
       - "3306"
+    networks:
+      - glpi_network
+
+volumes:
+  glpi_data:
+  glpi_mysql_data:
+
+networks:
+  glpi_network:
