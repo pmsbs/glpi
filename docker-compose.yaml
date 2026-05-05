@@ -9,7 +9,7 @@ services:
       db:
         condition: service_healthy
     ports:
-      - "80:80"
+      - "8080:80"
     networks:
       - glpi_network
 
